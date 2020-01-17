@@ -1010,7 +1010,6 @@ class PrinterBed:
     def dict(self): return PrinterBed.transform_raw(self.raw)
     @staticmethod
     def transform_raw(data):
-        print(data)
         data['pre_heat'] = PrinterBedPreHeat.transform_raw(data['pre_heat'])
         data['temperature'] = PrinterTemperature.transform_raw(data['temperature'])
         return data
