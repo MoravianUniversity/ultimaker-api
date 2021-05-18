@@ -69,7 +69,9 @@ class Ultimaker:
         if self._auth is None:
             # Try to load a saved copy of the authetication credentials
             if not self.auth.load():
-                self.auth.acquire('ultimaker-py-api')
+                id,key = self.auth.acquire('ultimaker-py-api')
+                self._id = id
+                self._key = key
                 self.auth.store()
         return self._auth
 
