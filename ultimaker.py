@@ -1245,7 +1245,7 @@ class PrintJob:
     @property
     def result(self):
         res = self._ultimaker._get('print_job/result')
-        return None if res is "" else PrintJobResult(res)
+        return None if res == "" else PrintJobResult(res)
 
 class History:
     def __init__(self, ultimaker): self._ultimaker = ultimaker
