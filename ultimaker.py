@@ -1197,6 +1197,7 @@ class PrintJob:
     @property
     def dict(self):
         info = self.raw
+        info['state'] = PrintJobState(info['state'])
         info['datetime_started'] = _dt(info['datetime_started'])
         info['datetime_finished'] = _dt(info['datetime_finished'])
         info['datetime_cleaned'] = _dt(info['datetime_cleaned'])
