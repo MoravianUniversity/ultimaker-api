@@ -1,0 +1,28 @@
+# Patch required for server.py in the griffin project on the Ultimaker printers to allow CORS requests
+
+--- server.py.bak	2019-06-09 03:52:22.422238475 +0000
++++ server.py	2019-06-09 04:04:55.170299084 +0000
+@@ -39,6 +39,11 @@
+         # Disable the default werkzeug logger, this logs all http requests, which spams the logs
+         logging.getLogger('werkzeug').disabled = True
+ 
++
++        # Add CORS support
++        self.after_request(Server.allow_cors)
++
++
+     def addExposedObject(self, exposed_object):
+         self._exposed_objects.append(exposed_object)
+ 
+@@ -84,3 +89,11 @@
+         else:
+             response.status_code = 500
+         return response
++
++    @staticmethod
++    def allow_cors(response):
++        if "Origin" in flask.request.headers: 
++            response.headers["Access-Control-Allow-Origin"] = flask.request.headers["Origin"]
++            response.headers["Vary"] = "Origin"
++        return response
++
